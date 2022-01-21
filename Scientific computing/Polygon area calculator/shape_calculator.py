@@ -36,8 +36,8 @@ class Rectangle:
                     print("*", end="")
                 print()
     
-    def get_amount_inside(self, shape):
-        return self.get_area() // shape.getarea()
+    def get_amount_inside(self, shape: Self@Rectangle ):
+        return self.get_area() // shape.get_area()
     
 
 class Square(Rectangle):
