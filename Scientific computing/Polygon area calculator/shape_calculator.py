@@ -2,10 +2,8 @@
 
 
 class Rectangle:
-    width = 0
-    height = 0
 
-    def __init__(self, Width, Height):
+    def __init__(self, Width: float, Height: float):
         self.width  = Width
         self.height = Height
     
@@ -36,14 +34,14 @@ class Rectangle:
                     print("*", end="")
                 print()
     
-    def get_amount_inside(self, shape: Self@Rectangle ):
-        return self.get_area() // shape.get_area()
+    def get_amount_inside(self, *args: object):
+        return self.get_area() // args.getarea
     
 
 class Square(Rectangle):
-    def __init__(self, side):
+    def __init__(self, side:float):
         self.width = side
-        self.height = side
+        self.height = self.width
 
     def __str__(self):
         return "Square(side={})".format(self.width)
