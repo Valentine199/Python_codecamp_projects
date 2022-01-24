@@ -32,10 +32,10 @@ class Rectangle:
             for i in range(self.height):
                 for j in range(self.width):
                     print("*", end="")
-                print()
+                print("\n", end="")
     
-    def get_amount_inside(self, *args: object):
-        return self.get_area() // args.getarea
+    def get_amount_inside(self, shape):
+        return self.get_area() // shape.get_area()
     
 
 class Square(Rectangle):
