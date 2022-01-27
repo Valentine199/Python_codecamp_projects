@@ -1,19 +1,26 @@
 def arithmetic_arranger(problems: list, calculate=False):
     # I turn the strings into more handleable classes
+    if CheckProblemsLength(problems):
+        return "Error: Too many problems."
     problemObjects = list()
     for items in problems:
         problemObjects.append(problem(list(items.split())[0], list(items.split())[1], list(items.split())[2], calculate))
     
-
+    # creates a list of lists which contains the list of the numbers and opperator for each object
     brokenLines = BreakObjectsToLines(problemObjects)
       
+    # We go through the broken lines as many times as many lines we need and always get the string needed for that specific line
+    # since we can only have a maximum of four lines we should be able to even mic things up if neccessary
     ans = ""
-    for i in range(len(brokenLines[0])):
+    for i in range(4):
         for brokenLine in brokenLines:
-            ans += brokenLine[i]+"    "
+            if(len(brokenLine)>i):
+                ans += brokenLine[i]+"    "
         ans += "\n"
     return ans
-       
+
+def CheckProblemsLength(problems: list):
+    return len(problems)>5  
 def BreakObjectsToLines(problemObjects: list):
     formatedProblems = list()
 
@@ -28,7 +35,11 @@ def BreakObjectsToLines(problemObjects: list):
 
 class problem:
     
-    def __init__(self, firstNum, opp, secondNum, calculate=False):
+    def __init__(self, firstNum:str, opp: str, secondNum:str, calculate=False):
+        assert opp =="+" or opp =="-", "Error: Operator must be '+' or '-'."
+        assert len(firstNum)< 5 and len(secondNum)< 5, "Error: Numbers cannot be more than four digits."
+        assert firstNum.isnumeric() == True and secondNum.isnumeric() ==True, "Error: Numbers must only contain digits."
+
         self.FirstNum = firstNum
         self.Opp = opp
         self.SecondNum = secondNum
