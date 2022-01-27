@@ -1,32 +1,38 @@
 def arithmetic_arranger(problems: list, calculate=False):
+    # I turn the strings into more handleable classes
     problemObjects = list()
     for items in problems:
-        problemObjects.append(problem(list(items.split())[0], list(items.split())[1], list(items.split())[2]))
+        problemObjects.append(problem(list(items.split())[0], list(items.split())[1], list(items.split())[2], calculate))
     
+
+    brokenLines = BreakObjectsToLines(problemObjects)
+      
+    ans = ""
+    for i in range(len(brokenLines[0])):
+        for brokenLine in brokenLines:
+            ans += brokenLine[i]+"    "
+        ans += "\n"
+    return ans
+       
+def BreakObjectsToLines(problemObjects: list):
     formatedProblems = list()
 
-    for i in range(len(problems)):
+    for i in range(len(problemObjects)):
         formatedProblems.append(problemObjects[i].MakeFormat())
     
     brokenLines = list()
     for formatedProblem in formatedProblems:
         brokenLines.append(formatedProblem.split("\n"))
     
-    ans = ""
-    for i in range(3):
-        for brokenLine in brokenLines:
-            ans += brokenLine[i]+"    "
-        ans += "\n"
-    return ans
-       
-    
+    return brokenLines
 
 class problem:
     
-    def __init__(self, firstNum, opp, secondNum):
+    def __init__(self, firstNum, opp, secondNum, calculate=False):
         self.FirstNum = firstNum
         self.Opp = opp
         self.SecondNum = secondNum
+        self.calc = calculate
         self.difference =  problem.GetLengthDifference(self)
 
 
@@ -53,7 +59,21 @@ class problem:
             Oneformated += f"{self.FirstNum}\n{self.Opp} {self.SecondNum}\n"
             for i in range (len(self.Bigger)+2):
                 Oneformated += "-"
+        if self.calc == True:
+            result = str(problem.DoCalculation(self))
+            Oneformated += "\n"
+            for i in range(len(self.Bigger)-len(result)+2):
+                Oneformated += " "
+            Oneformated +=f"{result}"
 
         
         return Oneformated
+    
+    def DoCalculation(self):
+        if(self.Opp == "+"):
+            return int(self.FirstNum) + int(self.SecondNum)
+        else:
+            return int(self.FirstNum) - int(self.SecondNum)
+
+
 
