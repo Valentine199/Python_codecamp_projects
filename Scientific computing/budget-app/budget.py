@@ -1,3 +1,6 @@
+from optparse import Values
+
+
 class Category:
     funds = 0
     def __init__(self, name: str):
@@ -63,4 +66,23 @@ class Category:
 
 
 def create_spend_chart(categories):
+    percentages = get_percentages(categories)
+    
+    
     pass
+
+def get_percentages(categories: list):
+    allSpent = 0
+    categorySpent = list()
+    for category in categories:
+        categorySpentIterator = 0
+        for transfers in category.ledger:
+            if transfers["amount"] < 0:
+                allSpent -= transfers["amount"]
+                categorySpentIterator -= transfers["amount"]
+        categorySpent.append(categorySpentIterator)
+    percentages = list()
+    for parts in categorySpent:
+        percentages.append(round((parts / allSpent*10),0))
+    
+    return percentages
