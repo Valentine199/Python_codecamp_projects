@@ -1,5 +1,3 @@
-from optparse import Values
-
 
 class Category:
     funds = 0
@@ -25,7 +23,8 @@ class Category:
         assert amount >= 0, f"The transfer can't be negative"
         if Category.check_funds(self, amount):
             self.withdraw(amount, f"Transfer to {other.category}")
-            other.deposit(amount, f"Transfer from {self.category}")        
+            other.deposit(amount, f"Transfer from {self.category}")
+            return True     
         else:
             return False
     
@@ -65,11 +64,48 @@ class Category:
 
 
 
-def create_spend_chart(categories):
+def create_spend_chart(categories:list):
+    # We calculate how many of the whole spent on different categories
     percentages = get_percentages(categories)
     
+    count = 100
+    draw = "Percentage spent by category\n"
+
+    # We write the o-s if the percentage ffits
+    while count >-1:
+        for i in range(4-(len(str(count))+1)):
+            draw += " "
+        
+
+        draw += str(count)+"|"
+        for i in percentages:
+            if i >= count:
+                draw += " o "
+            else:
+                draw += "   "
+        draw += "\n"
+        count -= 10
     
-    pass
+    draw += "    "
+    for i in range (len(categories) * 3 + 1):
+        draw += "-"
+    draw += "\n"
+
+    longestText = max(len(item.category) for item in categories)
+    for i in range (longestText):
+        draw += "    "
+        for j in range(3):
+           
+            draw += " "
+            if(len(categories[j].category)-1 >= i):
+                draw += categories[j].category[i]
+            else:
+                draw += " "
+            draw += " "
+        draw +="\n"
+        
+        
+    return draw
 
 def get_percentages(categories: list):
     allSpent = 0
@@ -83,6 +119,6 @@ def get_percentages(categories: list):
         categorySpent.append(categorySpentIterator)
     percentages = list()
     for parts in categorySpent:
-        percentages.append(round((parts / allSpent*10),0))
+        percentages.append(round((parts / allSpent*100),0))
     
     return percentages
