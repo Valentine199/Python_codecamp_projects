@@ -69,40 +69,45 @@ def create_spend_chart(categories:list):
     percentages = get_percentages(categories)
     
     count = 100
-    draw = "Percentage spent by category\n"
+    draw = "Percentage spent by category"
 
-    # We write the o-s if the percentage ffits
+    # We write the o-s if the percentage fits
+    
     while count >-1:
+        draw += "\n"
         for i in range(4-(len(str(count))+1)):
             draw += " "
         
 
-        draw += str(count)+"|"
+        draw += str(count)+"| "
         for i in percentages:
             if i >= count:
-                draw += " o "
+                draw += "o  "
             else:
                 draw += "   "
-        draw += "\n"
+        
         count -= 10
     
+    draw += "\n"
     draw += "    "
     for i in range (len(categories) * 3 + 1):
         draw += "-"
-    draw += "\n"
+    
 
+
+    
     longestText = max(len(item.category) for item in categories)
     for i in range (longestText):
-        draw += "    "
+        draw +="\n"
+        draw += "     "
         for j in range(3):
            
-            draw += " "
             if(len(categories[j].category)-1 >= i):
                 draw += categories[j].category[i]
             else:
                 draw += " "
-            draw += " "
-        draw +="\n"
+            draw += "  "
+        
         
         
     return draw
