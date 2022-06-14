@@ -19,13 +19,12 @@ class Hat:
 
     def draw(self, num_draws):
         drawn = list()
-        copy_content = copy.copy(self.contents)
-        if num_draws <= len(copy_content):
+        if num_draws <= len(self.contents):
             # doesn't seem so random
             for i in range(num_draws):
-                j = random.randrange(0, len(copy_content))
+                j = random.randrange(0, len(self.contents))
                 drawn.append(self.contents[j])
-                del copy_content[j]
+                del self.contents[j]
 
             return drawn
         else:
@@ -38,12 +37,15 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
     num_success = 0
     for i in range(num_experiments):
         good = True
+        save = copy.copy(hat.contents)
         returned_balls = turn2dictionary(hat.draw(num_balls_drawn))
         for key in expected_balls:
             if key not in returned_balls or expected_balls[key] > returned_balls[key]:
                 good = False
         if good:
             num_success += 1
+
+        hat.contents = save
 
     return num_success/num_experiments
 
