@@ -7,6 +7,7 @@ def calculate(list):
     array = np.reshape(list, (3, 3))
     statistics = dict()
     statistics["max"] = get_max(array)
+    statistics["min"] = get_min(array)
 
 
     return statistics
@@ -20,4 +21,13 @@ def get_max(array):
     maxs.append(array.max()) # flattened
 
     return  maxs
+
+def get_min(array):
+    mins = list()
+
+    mins.append(array.min(axis=0))  # y axis
+    mins.append(array.min(axis=1))  # x axis
+    mins.append(array.min())  # flattened
+
+    return mins
 
