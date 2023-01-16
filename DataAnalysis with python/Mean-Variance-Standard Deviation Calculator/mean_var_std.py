@@ -1,21 +1,20 @@
 import numpy as np
 
 
+def calculate(num_list):
+    if len(num_list) < 9:
+        raise ValueError("List must contain nine numbers")
 
 
-
-def calculate(list):
-    assert len(list) == 9, "The list's length is not 9."
-
-    array = np.reshape(list, (3, 3))
+    array = np.reshape(num_list, (3, 3))
     statistics = dict()
+
     statistics["mean"] = get_mean(array)
     statistics["variance"] = get_variance(array)
     statistics["standard deviation"] = get_standard_deviation(array)
     statistics["max"] = get_max(array)
     statistics["min"] = get_min(array)
     statistics["sum"] = get_sum(array)
-
 
     return statistics
 
@@ -29,6 +28,7 @@ def get_mean(array):
 
     return means
 
+
 def get_variance(array):
     variances = list()
 
@@ -38,23 +38,26 @@ def get_variance(array):
 
     return variances
 
+
 def get_standard_deviation(array):
-    SDs = list()
+    stds = list()
 
-    SDs.append(array.std(axis=0))  # Y axis
-    SDs.append(array.std(axis=1))  # X axis
-    SDs.append(array.std())  # Flattened
+    stds.append(array.std(axis=0))  # Y axis
+    stds.append(array.std(axis=1))  # X axis
+    stds.append(array.std())  # Flattened
 
-    return SDs
+    return stds
+
 
 def get_max(array):
     maxs = list()
 
-    maxs.append(array.max(axis=0)) # y axis
-    maxs.append(array.max(axis=1)) # x axis
-    maxs.append(array.max()) # flattened
+    maxs.append(array.max(axis=0))  # y axis
+    maxs.append(array.max(axis=1))  # x axis
+    maxs.append(array.max())  # flattened
 
-    return  maxs
+    return maxs
+
 
 def get_min(array):
     mins = list()
@@ -65,6 +68,7 @@ def get_min(array):
 
     return mins
 
+
 def get_sum(array):
     sums = list()
 
@@ -73,4 +77,3 @@ def get_sum(array):
     sums.append(array.sum())  # flattened
 
     return sums
-
