@@ -2,3 +2,5 @@ Mean-Variance-Standard Deviation Calculator description: https://www.freecodecam
 
 Demographic Data Analyzer description: https://www.freecodecamp.org/learn/data-analysis-with-python/data-analysis-with-python-projects/demographic-data-analyzer
 
+Medical Data Visualizer description: https://www.freecodecamp.org/learn/data-analysis-with-python/data-analysis-with-python-projects/medical-data-visualizer
+
