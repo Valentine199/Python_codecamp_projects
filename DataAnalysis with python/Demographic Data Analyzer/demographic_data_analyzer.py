@@ -5,7 +5,6 @@ def calculate_demographic_data(print_data=True):
     # Read data from file
     df = pd.read_csv("adult.data.csv", header=0)
 
-
     # How many of each race are represented in this dataset? This should be a Pandas series with race names as the index labels.
     race_count = df["race"].value_counts()
 
@@ -46,7 +45,6 @@ def calculate_demographic_data(print_data=True):
 
     # Identify the most popular occupation for those who earn >50K in India.
     filtered = df[(df["salary"] == ">50K") & (df["native-country"] == "India")]
-    num_employees_by_occupation = filtered["occupation"].value_counts().idxmax()
 
     top_IN_occupation = filtered["occupation"].value_counts().idxmax()
 
