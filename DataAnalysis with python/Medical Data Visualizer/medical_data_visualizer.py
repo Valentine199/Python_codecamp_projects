@@ -3,10 +3,14 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
 
+pd.set_option('display.max_columns', None)
 # Import data
-df = None
+df = pd.read_csv("medical_examination.csv")
+df = df.set_index("id")
+print(df.head())
 
 # Add 'overweight' column
+
 df['overweight'] = None
 
 
