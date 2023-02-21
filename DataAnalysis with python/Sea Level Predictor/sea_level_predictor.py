@@ -10,7 +10,8 @@ def draw_plot():
     print(df.head())
 
     # Create scatter plot
-
+    plt.scatter(df.iloc[:, 0], df.iloc[:, 1])
+    plt.show()
     # Create first line of best fit
 
     # Create second line of best fit
