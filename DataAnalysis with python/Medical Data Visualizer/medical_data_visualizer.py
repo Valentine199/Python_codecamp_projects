@@ -10,7 +10,7 @@ df = df.set_index("id")
 # Add 'overweight' column
 weight = df["weight"]
 height_in_meters = df["height"] / 100  # It is in cm, but we convert to metre for easier calculation
-BMI = weight / height_in_meters ** 2
+BMI = weight / (height_in_meters ** 2)
 df['overweight'] = (BMI > 25).astype(int)
 
 
