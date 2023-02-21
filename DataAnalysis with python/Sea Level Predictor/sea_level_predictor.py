@@ -37,10 +37,12 @@ def draw_plot():
     yFutureModern = slopeModern * xPredModern + yInterceptModern
 
     plt.plot(xPredModern, yFutureModern, color="green", label="Trend Line from present data")
-    plt.show()
 
     # Add labels and title
-
+    plt.title = "Rise in Sea Level"
+    plt.xlabel = "Year"
+    plt.ylabel = "Sea Level (inches)"
     # Save plot and return data for testing (DO NOT MODIFY)
-    # plt.savefig('sea_level_plot.png')
+    plt.savefig('sea_level_plot.png')
+    plt.show()
     return plt.gca()
