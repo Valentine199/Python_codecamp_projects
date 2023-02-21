@@ -4,3 +4,5 @@ Demographic Data Analyzer description: https://www.freecodecamp.org/learn/data-a
 
 Medical Data Visualizer description: https://www.freecodecamp.org/learn/data-analysis-with-python/data-analysis-with-python-projects/medical-data-visualizer
 
+sea_level_predictor description: https://www.freecodecamp.org/learn/data-analysis-with-python/data-analysis-with-python-projects/sea-level-predictor
+
