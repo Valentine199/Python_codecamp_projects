@@ -24,11 +24,20 @@ def draw_plot():
     xPred = range(x[0], 2050, 1)
     yFuture = slope * xPred + yIntercept
 
-    plt.plot(xPred, yFuture, color="red", label="Trend Line")
-    plt.show()
+    plt.plot(xPred, yFuture, color="red", label="Trend Line from all data")
+
 
     # Create second line of best fit
     dfModern = df[df["Year"] >= 2000]
+    resModern = linregress(dfModern)
+    yInterceptModern = resModern.intercept
+    slopeModern = resModern.slope
+
+    xPredModern = range(2000, 2050, 1)
+    yFutureModern = slopeModern * xPredModern + yInterceptModern
+
+    plt.plot(xPredModern, yFutureModern, color="green", label="Trend Line from present data")
+    plt.show()
 
     # Add labels and title
 
