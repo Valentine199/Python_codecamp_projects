@@ -6,7 +6,8 @@ from scipy.stats import linregress
 def draw_plot():
     # Read data from file
     df = pd.read_csv("epa-sea-level.csv")
-    #df = df.drop(df.iloc[])
+    df = df.drop(df.iloc[:, 2:], axis=1)
+    print(df.head())
 
     # Create scatter plot
 
