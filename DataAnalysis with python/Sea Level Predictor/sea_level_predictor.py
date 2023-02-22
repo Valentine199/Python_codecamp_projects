@@ -20,7 +20,8 @@ def draw_plot():
     print("Slope: " + str(slope) + " Y Intercept: " + str(y_intercept))
 
     # y = mx + b
-    x_pred: range = range(x[0], 2050, 1)
+    x_pred = range(x[0], 2051, 1)
+    print(x_pred)
     y_future = slope * x_pred + y_intercept
 
     plt.plot(x_pred, y_future, color="red", label="Trend Line from all data")
@@ -31,16 +32,16 @@ def draw_plot():
     y_intercept_modern = res_modern.intercept
     slope_modern = res_modern.slope
 
-    x_pred_modern = range(2000, 2050, 1)
+    x_pred_modern = range(2000, 2051, 1)
     y_future_modern = slope_modern * x_pred_modern + y_intercept_modern
 
     plt.plot(x_pred_modern, y_future_modern, color="green", label="Trend Line from present data")
 
     # Add labels and title
-    plt.title = "Rise in Sea Level"
-    plt.xlabel = "Year"
-    plt.ylabel = "Sea Level (inches)"
+    plt.title("Rise in Sea Level")
+    plt.xlabel("Year")
+    plt.ylabel("Sea Level (inches)")
     # Save plot and return data for testing (DO NOT MODIFY)
     plt.savefig('sea_level_plot.png')
-    plt.show()
+    # plt.show()
     return plt.gca()
