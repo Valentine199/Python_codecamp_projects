@@ -5,7 +5,7 @@ import numpy as np
 
 # Import data
 df = pd.read_csv("medical_examination.csv")
-df = df.set_index("id")
+# df = df.set_index("id")
 
 # Add 'overweight' column
 weight = df["weight"]
@@ -20,7 +20,7 @@ df[["gluc", "cholesterol"]] = (df[["gluc", "cholesterol"]] > 1).astype(int)
 # Draw Categorical Plot
 def draw_cat_plot():
     # Create DataFrame for cat plot using `pd.melt` using just the values from 'cholesterol', 'gluc', 'smoke', 'alco', 'active', and 'overweight'.
-    df_cat = pd.melt(df, id_vars=["cardio"], value_vars=["cholesterol", "gluc", "smoke", "alco", "active", "overweight"])
+    df_cat = pd.melt(df, id_vars=["cardio"], value_vars=["active", "alco", "cholesterol", "gluc", "overweight", "smoke"])
 
     # Melt is like a Cartesian product. But only between the id_vars and the value_vars
     # If we have n data, then cardio will go from 1 to n and matches all with all cholesterol data from 1 to n
@@ -38,6 +38,7 @@ def draw_cat_plot():
     # Get the figure for the output
     #fig = None
 
+
     # Do not modify the next two lines
     fig.savefig('catplot.png')
     return fig
@@ -51,7 +52,8 @@ def draw_heat_map():
     df_heat = df_heat[df_heat['height'] <= df['height'].quantile(0.975)]
     df_heat = df_heat[df_heat['weight'] >= df['weight'].quantile(0.025)]
     df_heat = df_heat[df_heat['weight'] <= df['weight'].quantile(0.975)]
-
+    df_heat.reset_index()
+    print(df_heat.head())
 
     # Calculate the correlation matrix
     corr = df_heat.corr() # corr as in correlation
