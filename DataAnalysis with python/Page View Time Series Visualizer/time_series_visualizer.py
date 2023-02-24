@@ -6,16 +6,14 @@ register_matplotlib_converters()
 
 # Import data (Make sure to parse dates. Consider setting index column to 'date'.)
 df = pd.read_csv("fcc-forum-pageviews.csv", index_col=0, parse_dates=['date'])
-# print(df.count())
+df = df[df['value'].notnull()]
+
+print(df.count())
 
 # Clean data
-mask_max = df['value'] <= df['value'].quantile(0.975)
-df = df[mask_max]
-# print(df.count())
 
-mask_min = df['value'] >= df['value'].quantile(0.025)
-df = df[mask_min]
-# print(df.count())
+df = df[df["value"].between( df["value"].quantile(.025), df["value"].quantile(.975) ) ]
+print(df.count())
 
 def draw_line_plot():
     # Draw line plot
@@ -55,7 +53,7 @@ def draw_bar_plot():
 
     # Save image and return fig (don't change this part)
     fig.savefig('bar_plot.png')
-    return None  # fig
+    return fig
 
 def draw_box_plot():
     # Prepare data for box plots (this part is done!)
@@ -63,15 +61,17 @@ def draw_box_plot():
     df_box.reset_index(inplace=True)
     df_box['year'] = [d.year for d in df_box.date]
     df_box['month'] = [d.strftime('%b') for d in df_box.date]
+    df_box['monthNum'] = df_box.date.dt.month
+    df_box = df_box.sort_values('monthNum')
 
     # Draw box plots (using Seaborn)
-    fig, ax = plt.subplots(2, figsize=(10, 5))
+    fig, ax = plt.subplots(ncols=2, figsize=(10, 5))
 
     sns.boxplot(df_box, x='year', y='value', ax=ax[0]).set(xlabel='Year', ylabel='Page Views', title='Year-wise Box Plot (Trend)')
     sns.boxplot(df_box, x='month', y='value', ax=ax[1]).set(xlabel='Month', ylabel='Page Views', title='Month-wise Box Plot (Seasonality)')
 
-
+    fig.tight_layout()
 
     # Save image and return fig (don't change this part)
     fig.savefig('box_plot.png')
-    return None  # fig
+    return fig
