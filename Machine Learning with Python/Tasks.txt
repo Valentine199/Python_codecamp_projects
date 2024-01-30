@@ -4,3 +4,4 @@ Cat and Dog Image Classifier: https://www.freecodecamp.org/learn/machine-learnin
 
 Book Recommendation: https://www.freecodecamp.org/learn/machine-learning-with-python/machine-learning-with-python-projects/book-recommendation-engine-using-knn
 
+Linear Regression Health Costs Calculator: https://www.freecodecamp.org/learn/machine-learning-with-python/machine-learning-with-python-projects/linear-regression-health-costs-calculator
