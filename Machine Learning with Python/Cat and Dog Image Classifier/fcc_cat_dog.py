@@ -8,11 +8,11 @@ Original file is located at
 """
 
 # Commented out IPython magic to ensure Python compatibility.
-try:
+#try:
   # This command only in Colab.
 #   %tensorflow_version 2.x
-except Exception:
-  pass
+#except Exception:
+  #pass
 import tensorflow as tf
 
 from tensorflow.keras.models import Sequential
