@@ -1,54 +1,34 @@
 # The example function below keeps track of the opponent's history and plays whatever the opponent played two plays ago. It is not a very good player so you will need to change the code to pass the challenge.
 from typing import Tuple
 
-
+track = {}
 # I know only the previous step of the enemy
-
-def pattern_seeking(opponent_history: list[str]) -> Tuple[bool, int]:
-    # find pattern
-    idx = -1
-    is_pattern = False
+# default strat
+def pattern_seeking(opponent_history: list[str]) -> Tuple[bool, str]:
+    global track
+    n = 3
     combined_plays = "".join(opponent_history)
-    if len(combined_plays) > 3:
-        sample = combined_plays[-3:]
+    if len(combined_plays) > n:
+        input = combined_plays[-n:]
+        lookback = combined_plays[-(n+1):]
 
-        if combined_plays.count(sample) >= 2:
-            is_pattern = True
-            idx = combined_plays.index(sample) + len(sample)
+        if lookback in track:
+            track[lookback] += 1
+        else:
+            track[lookback] = 1
 
+        possible = [input + "R", input + "P", input + "S"]
 
+        for i in possible:
+            if not i in track:
+                track[i] = 0
 
-    return is_pattern, idx
+        enemy_str = max(possible, key=lambda inp: track[inp])
+        enemy_move = enemy_str[-1]
 
-def avarage_output(opponent_history: list[str]) -> str:
-    weight_dict = {
-        "R": 1,
-        "S": 1,
-        "P": 1
-    }
+        return True, enemy_move
 
-    for play in opponent_history:
-        if play in weight_dict:
-            weight_dict[play] += 1
-
-    n = len(opponent_history)
-    idx = 0
-    max_chance = 0.0
-    for i, weight in enumerate(weight_dict.values()):
-        weight_chance = (weight / n)
-        if weight_chance > max_chance:
-            max_chance = weight_chance
-            idx = i
-
-    return list(weight_dict.keys())[idx]
-
-def is_player_affecting(opponent_history: list[str]) -> bool:
-    if "R" in opponent_history[-3:] and "S" in opponent_history[-3:] and "P" in opponent_history[-3:]:
-        # Player affects outcome
-
-        return True
-    return False
-
+    return False, ''
 
 def player(prev_play, opponent_history=[]):
     opponent_history.append(prev_play)  # keeps on growing (python thing)
@@ -59,19 +39,15 @@ def player(prev_play, opponent_history=[]):
         "S": "R"
     }
 
-    is_pattern, idx = pattern_seeking(opponent_history)
+    is_pattern, enemy_play = pattern_seeking(opponent_history)
 
-    is_affected = is_player_affecting(opponent_history)
+
 
     if not is_pattern:
-        probable_enemy_play = avarage_output(opponent_history)
+        probable_enemy_play = 'R'
 
     if is_pattern:
-        most_probable_enemy_play = opponent_history[idx]
-
-        # if is_affected:
-        #most_probable_enemy_play = counter_dict[most_probable_enemy_play] # I simulate the opponent's counter
-
+        most_probable_enemy_play = enemy_play
     else:
         most_probable_enemy_play = probable_enemy_play
 
